@@ -70,6 +70,31 @@ input:focus {
   animation: float 3s ease-in-out infinite;
 }
 
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(180deg); }
+}
+
+.animate-float2 {
+  animation: float2 4s ease-in-out infinite;
+}
+
+/* Enhanced pulse animation */
+@keyframes enhancedPulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+.animate-enhanced-pulse {
+  animation: enhancedPulse 3s ease-in-out infinite;
+}
+
 /* Glass morphism effect */
 .glass {
   backdrop-filter: blur(10px);
