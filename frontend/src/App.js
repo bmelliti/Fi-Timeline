@@ -426,21 +426,7 @@ const FITimelineCalculator = () => {
             </div>
 
             {/* Result Display */}
-            <div className={`p-6 rounded-xl ${
-              theme === 'dark' 
-                ? 'bg-gradient-to-br from-blue-900/50 to-purple-900/50 border border-blue-800' 
-                : 'bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200'
-            }`}>
-              <h3 className="text-sm font-semibold mb-2 text-center">Time to Reach Goal</h3>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-1">
-                  {result.years}y {result.remainingMonths}m
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  ≈ {result.months} months
-                </div>
-              </div>
-            </div>
+            <EnhancedResultDisplay result={result} theme={theme} />
           </div>
         </div>
 
