@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import anime from 'animejs/lib/anime.es.js';
+import anime from 'animejs/lib/anime.esm.js';
 import './App.css';
 
 // Register Chart.js components
