@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
+import { GradientBackground, FloatingElements, EnhancedResultDisplay } from './components/VisualEnhancements';
 import './App.css';
 
 // Register Chart.js components
