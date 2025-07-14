@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import anime from 'animejs';
 import './App.css';
 
 // Register Chart.js components
@@ -28,18 +27,30 @@ const FITimelineCalculator = () => {
   const fullTgt = useRef([]);
   const hasStaggered = useRef(false);
 
+  // Simple animation function to replace anime.js initially
+  const animateValue = (start, end, duration, callback) => {
+    const startTime = performance.now();
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Ease out exponential function
+      const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = start + (end - start) * easeOutExpo;
+      
+      callback(current);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  };
+
   // Theme toggle
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    
-    // Animate theme icon
-    anime({
-      targets: '.theme-icon',
-      rotate: '+=180',
-      duration: 500,
-      easing: 'easeInOutCubic'
-    });
   };
 
   // Calculate FI timeline
@@ -73,20 +84,13 @@ const FITimelineCalculator = () => {
     const months = n % 12;
     
     // Animated counting
-    anime({
-      targets: { val: 0 },
-      val: n,
-      round: 1,
-      duration: 900,
-      easing: 'easeOutExpo',
-      update: (anim) => {
-        const currentVal = anim.animations[0].currentValue;
-        setResult({
-          months: currentVal,
-          years: Math.floor(currentVal / 12),
-          remainingMonths: currentVal % 12
-        });
-      }
+    animateValue(0, n, 900, (currentVal) => {
+      const roundedVal = Math.round(currentVal);
+      setResult({
+        months: roundedVal,
+        years: Math.floor(roundedVal / 12),
+        remainingMonths: roundedVal % 12
+      });
     });
     
     buildChart(n);
@@ -232,32 +236,6 @@ const FITimelineCalculator = () => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
-  // Pulse animation for focus
-  const pulseElement = (element) => {
-    anime({
-      targets: element,
-      scale: [1, 1.02, 1],
-      duration: 200,
-      easing: 'easeInOutSine'
-    });
-  };
-
-  // Initial stagger animation
-  useEffect(() => {
-    if (!hasStaggered.current) {
-      const controls = document.querySelectorAll('.control-item');
-      anime({
-        targets: controls,
-        translateY: [30, 0],
-        opacity: [0, 1],
-        delay: anime.stagger(100),
-        duration: 600,
-        easing: 'easeOutQuad'
-      });
-      hasStaggered.current = true;
-    }
-  }, []);
-
   // Calculate on input change
   useEffect(() => {
     calculateFI();
@@ -347,7 +325,6 @@ const FITimelineCalculator = () => {
                   type="number"
                   value={inputs.start}
                   onChange={(e) => handleInputChange('start', parseInt(e.target.value) || 0)}
-                  onFocus={(e) => pulseElement(e.target)}
                   className={`w-full pl-8 pr-4 py-3 rounded-xl border-2 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     theme === 'dark' 
                       ? 'bg-gray-700 border-gray-600 text-white' 
