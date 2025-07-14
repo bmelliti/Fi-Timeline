@@ -257,19 +257,9 @@ const FITimelineCalculator = () => {
         ? 'bg-gray-900 text-gray-100' 
         : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900'
     }`}>
-      {/* Animated background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute -top-40 -right-40 w-96 h-96 rounded-full opacity-20 ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-br from-blue-600 to-purple-600' 
-            : 'bg-gradient-to-br from-blue-400 to-indigo-400'
-        } animate-pulse`}></div>
-        <div className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full opacity-20 ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-br from-purple-600 to-pink-600' 
-            : 'bg-gradient-to-br from-purple-400 to-pink-400'
-        } animate-pulse`} style={{ animationDelay: '2s' }}></div>
-      </div>
+      {/* Enhanced animated background */}
+      <GradientBackground theme={theme} />
+      <FloatingElements theme={theme} />
 
       {/* Header */}
       <header className="relative z-10 flex items-center justify-between p-6 backdrop-blur-sm">
