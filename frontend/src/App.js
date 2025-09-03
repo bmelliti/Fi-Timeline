@@ -224,10 +224,10 @@ const FITimelineCalculator = () => {
     setScrubberValue(value);
     const cut = parseInt(value);
     
-    chartInstance.current.data.labels.length = cut + 1;
-    chartInstance.current.data.datasets.forEach(dataset => {
-      dataset.data.length = cut + 1;
-    });
+    // Instead of truncating arrays, update the chart with sliced data
+    chartInstance.current.data.labels = Array.from({ length: cut + 1 }, (_, i) => i);
+    chartInstance.current.data.datasets[0].data = fullBal.current.slice(0, cut + 1);
+    chartInstance.current.data.datasets[1].data = fullTgt.current.slice(0, cut + 1);
     
     chartInstance.current.update('none');
   };
