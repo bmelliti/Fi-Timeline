@@ -10,4 +10,11 @@
   "devDependencies": {
     "vercel": "^47.0.4"
   }
+{
+  "name": "fi-timeline",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'No build required - static site'"
+  }
+}
 }
