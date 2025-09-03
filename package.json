@@ -1,0 +1,13 @@
+{
+  "name": "fi-timeline-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm start"
+  },
+  "devDependencies": {
+    "vercel": "^47.0.4"
+  }
+}
